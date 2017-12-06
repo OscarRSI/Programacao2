@@ -106,7 +106,7 @@ void escrevermatriz (int matriz[][MATRIZ_MAX])
     }
 }
 
-int confimarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2jogada)
+int confirmarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2jogada)
 {
     int i,j;
   
@@ -115,15 +115,15 @@ int confimarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2joga
     
     for (i = 0; i < MATRIZ_MAX; i++)
     {
-        for (j = 0; MATRIZ_MAX - 2;j++)
+        for (j = 0; j < MATRIZ_MAX - 2;j++)
         {
             if (matriz[i][j] != '-' && matriz[i][j] == matriz[i][j + 1] && matriz[i][j] == matriz[i][j + 2])
             {
-                if (jogador == 0)
+                if (jogador == 1)
                 {
                     printf("Jogador 1 ganhou com %d jogadas.", n1jogada);
                     return 1;
-                }else if (jogador == 1)
+                }else if (jogador == 2)
                 {
                     printf("Jogador 2 ganhou com %d jogadas.", n2jogada);
                     return 1;
@@ -134,17 +134,17 @@ int confimarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2joga
     
     //vertical
     
-    for (i = 0; MATRIZ_MAX -2; i++)
+    for (i = 0; i < MATRIZ_MAX -2; i++)
     {
         for (j = 0; j < MATRIZ_MAX; j++)
         {
             if (matriz[i][j] != '-' && matriz[i][j] == matriz[i + 1][j] && matriz[i][j] == matriz[i + 2][j])
             {
-                if (jogador = 0)
+                if (jogador = 1)
                 {
                     printf("Jogador 1 ganhou com %d jogadas.", n1jogada);
                     return 1;
-                }else if (jogador == 1)
+                }else if (jogador == 2)
                 {
                     printf("Jogador 2 ganhou com %d jogadas.", n2jogada);
                     return 1;
@@ -155,17 +155,17 @@ int confimarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2joga
     
     // Diagonal direita-esquerda
     
-    for (i = 0; MATRIZ_MAX -2; i++)
+    for (i = 0; i<MATRIZ_MAX -2; i++)
     {
-        for (j = 0; MATRIZ_MAX -2; j++)
+        for (j = 0; j< MATRIZ_MAX -2; j++)
         {
             if (matriz[i][j + 2] != '-' && matriz[i][j + 2] == matriz[i + 1][j + 1] && matriz[i][j + 2] == matriz[i + 2][j])
             {
-                if (jogador == 0)
+                if (jogador == 1)
                 {
                     printf("Jogador 1 ganhou com %d jogadas.", n1jogada);
                     return 1;
-                }else if (jogador == 1)
+                }else if (jogador == 2)
                 {
                     printf("Jogador 2 ganhou com %d jogadas.", n2jogada);
                     return 1;
@@ -176,17 +176,18 @@ int confimarjogada(int matriz[][MATRIZ_MAX], int jogador,int n1jogada,int n2joga
     
     // Diagonal esquerda-direita
     
-   for (i = 0; MATRIZ_MAX -2; i++)
+   for (i = 0; i<MATRIZ_MAX -2; i++)
     {
-        for (j = 0; MATRIZ_MAX -2; j++)
+        for (j = 0; j < MATRIZ_MAX -2; j++)
         {
-            if (matriz[i][j] != '-' && matriz[i][j] == matriz[i + 1][j + 1] && matriz[i][j] == matriz[i + 2][j + 2])
+            if (matriz[i][j] != -1 && matriz[i][j] == matriz[i + 1][j + 1] && matriz[i][j] == matriz[i + 2][j + 2])
             {
-                if (jogador == 0)
+                if (jogador == 1)
                 {
                     printf("Jogador 1 ganhou com %d jogadas.", n1jogada);
                     return 1;
-                }else if (jogador == 1)
+                    
+                }else if (jogador == 2)
                 {
                     printf("Jogador 2 ganhou com %d jogadas.", n2jogada);
                     return 1;
@@ -202,7 +203,7 @@ void jogar (int matriz[][MATRIZ_MAX], char token[TOKEN_MAX])
     int i=1, j;
     int linha, coluna = 0, c = 0;
     int letra = 65, vitoria = 0;
-    int n1jogada, n2jogada;
+    int n1jogada=0, n2jogada=0;
     
    while  (1)
     {
@@ -226,6 +227,12 @@ void jogar (int matriz[][MATRIZ_MAX], char token[TOKEN_MAX])
         tokenmatriz(matriz, c, linha, token, i);
         escrevermatriz(matriz);
         
+                    
+        if (vitoria == 1)
+        {
+            break;
+        }
+        
         if (i == 1) 
         {
             ++i;
@@ -236,13 +243,6 @@ void jogar (int matriz[][MATRIZ_MAX], char token[TOKEN_MAX])
             ++n2jogada;
         }
         
-        
-        vitoria = confirmarjogada(matriz, n1jogada, n2jogada, i);
-        
-        if (vitoria == 1)
-        {
-            break;
-        }
         
     }
 }
